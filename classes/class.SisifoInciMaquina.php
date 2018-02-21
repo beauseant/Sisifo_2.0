@@ -60,7 +60,7 @@ class SisifoInciMaquina extends SisifoIncidencia{
     * @param desc_breve La descripcion breve de la incidencia.
     * @param desc_larga La descripcion larga de la incidencia.
     */
-    function insertar ( $desc_breve, $desc_larga, $nombre_maq, $labo ) {
+    function insertar ( $desc_breve, $desc_larga, $nombre_maq, $labo,$param1 = 0,$param2=0, $param3=0, $param4=0,$param5=0 ) {
 
 	$db = $this -> sisifoConf -> getBd();
 

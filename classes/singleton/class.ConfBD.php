@@ -1,6 +1,10 @@
 <?php 
-  
 
+	require_once("adodb/adodb-errorhandler.inc.php");
+	require_once("adodb/adodb.inc.php");
+
+
+  
 	/**
 	* Esta clase se encarga de gestionar la base de datos del sistema.
 	* Para ello crea un objeto de base de datos a partir de los datos de
@@ -40,6 +44,9 @@
 			$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;		
 			
 			$this -> db = $dbtmp;
+			$this -> db->setCharset('utf8');
+
+
 			
 		}
 		

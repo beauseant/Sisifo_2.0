@@ -105,8 +105,8 @@ class SisifoInciAltaUsr extends SisifoIncidencia{
 	* @param apellido el apellido
 	* @param rol el rol del nuevo usuario.
 	*/              
-    function insertar ( $desc_breve, $desc_larga, $login, 
-    	$correo_con, $nombre, $apellido, $rol, $cc ) {   
+
+    function insertar ( $desc_breve, $desc_larga, $login, $correo_con, $nombre = 0,  $apellido = 0,$rol=0, $param3=0, $param4=0 ) {   
 	
 
 	   	$db = $this -> sisifoConf -> getBd();

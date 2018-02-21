@@ -1,7 +1,7 @@
 <?php 
 
 require_once ("class.SisifoIncidencia.php");
-
+require_once ("singleton/class.Configuracion.php");
 
 
 	/**
@@ -68,7 +68,7 @@ class SisifoInciLlave extends SisifoIncidencia{
     * @param estado El estado de la incidencia, peticion devolucion
     * @param laboratorio el laboratorio del que se quiere dicha llave.
     */
-    function insertar ( $desc_breve, $desc_larga, $estado, $laboratorio, $cc ) {
+    function insertar ( $desc_breve, $desc_larga, $estado, $laboratorio, $cc=0,$param1 = 0,$param2=0, $param3=0, $param4=0 ) {
     
     	
 

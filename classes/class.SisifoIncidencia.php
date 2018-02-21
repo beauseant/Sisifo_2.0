@@ -219,7 +219,10 @@ class SisifoIncidencia {
 	* @param desc_larga la descripcion larga de la incidencia.
 	* @param tipo el tipo de incidencia a insertar.
 	*/     
-    function insertar ( $desc_breve, $desc_larga, $tipo, $cc ) {
+  //param4 puestos por compatilibidad con php7 , los hijos deben tener los mismos parametros que el apdre
+
+  function insertar ( $desc_breve, $desc_larga, $tipo, $cc, $param0 = 0,  $param1 = 0,$param2=0, $param3=0, $param4=0 ) {
+
 
 	$db = $this -> sisifoConf -> getBd();
      

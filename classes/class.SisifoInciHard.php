@@ -65,7 +65,7 @@ class SisifoInciHard extends SisifoIncidencia{
 	* @param tipo_hard El tipo de incidencia hardware.
 	* @param id_maq El identificador de la maquina a la que se refiere.
 	*/             
-    function insertar ( $desc_breve, $desc_larga, $tipo_hard, $id_maq, $cc ) {
+    function insertar ( $desc_breve, $desc_larga, $tipo_hard, $id_maq, $cc = 0,  $param1 = 0,$param2=0, $param3=0, $param4=0 ) {
     
 	
 	   	$db = $this -> sisifoConf -> getBd();

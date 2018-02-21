@@ -94,8 +94,9 @@ class SisifoInciBajaUsr extends SisifoIncidencia{
 	* @param rol el rol del usuario.
 	* @param id_usr el identificador del usuario.	
 	*/             
-    function insertar ( $desc_breve, $desc_larga, $login, 
-    	$correo_con, $id_usr, $nombre, $apellido, $rol, $cc ) {   
+
+	
+    function insertar ( $desc_breve, $desc_larga, $login, $correo_con, $id_usr=0, $nombre=0, $apellido=0, $rol=0, $cc=0 ) {   
 	
 
 

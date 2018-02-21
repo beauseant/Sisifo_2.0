@@ -40,8 +40,9 @@ class SisifoInciSoft extends SisifoIncidencia{
 	* @param id el identificador de la incidencia a buscar.
 	* @param crear si se trata de un alta o de una insercion.
 	*/           
-    function SisifoInciSoft ( $id, $crear = false ) {    	
-	
+    function SisifoInciSoft ( $id, $crear = false ) {    
+
+
 	$this -> sisifoConf  = new Configuracion ( $_SESSION ['fichero'] );
 
 	$db = $this -> sisifoConf -> getBd();
@@ -55,9 +56,11 @@ class SisifoInciSoft extends SisifoIncidencia{
 		$this -> datos_maquina = new SisifoMaquina ( $resultSet -> fields ['id_equipo']); 
 		$tipo_soft_num = $resultSet -> fields ['tipo'];	
 		$sql = "SELECT * FROM tipo_soft WHERE id = $tipo_soft_num";
+		print $sql;
 		$resultSet = $db->Execute ( $sql );
 		$this -> tipo_soft = $resultSet -> fields ['descripcion'];	
-	}
+		}
+
     }    
         
     
@@ -69,7 +72,8 @@ class SisifoInciSoft extends SisifoIncidencia{
     * @param tipo_soft El subtipo de incidencia software.
     * @param id_maq La identificacion de la maquina a la que se refiere la incidencia.
     */
-    function insertar ( $desc_breve, $desc_larga, $tipo_soft, $id_maq, $cc ) {
+    
+    function insertar ( $desc_breve, $desc_larga, $tipo_soft, $id_maq, $cc=0, $param1 = 0,$param2=0, $param3=0, $param4=0 ) {
     	
 
 	$db = $this -> sisifoConf -> getBd();

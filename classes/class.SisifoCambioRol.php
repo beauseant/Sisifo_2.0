@@ -106,8 +106,7 @@ class SisifoCambioRol extends SisifoIncidencia {
 	* @param rol el rol del usuario.
 	* @param id_usr el identificador del usuario.	
 	*/             
-	function insertar ( $desc_breve, $desc_larga, $login, 
-		$rol_ant, $rol_nuevo, $nombre, $apellido, $cc ) {
+	function insertar ( $desc_breve, $desc_larga, $login,$rol_ant, $rol_nuevo=0, $nombre=0, $apellido=0, $cc=0, $param1=0 ) {
 	
 		$db = $this -> sisifoConf -> getBd();
 		
