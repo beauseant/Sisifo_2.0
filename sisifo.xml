@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<SISTEMA>
+        
+        <DB>
+                <host>192.168.151.207</host>
+                <dbase>incisisifo</dbase>
+                <user>dbadmin</user>
+                <passwd>Mpv32125@Up</passwd>
+                <dbtype>mysqli</dbtype>       
+        </DB>
+        
+        
+        <LDAP>
+                <ldaphost>umbriel</ldaphost>
+                <userbind>uid = --userlogin--, ou=People, dc=tsc, dc=uc3m,dc=es</userbind>
+                <adminbind>cn=sysadmin, ou=Group,DC=tsc,DC=uc3m,DC=es</adminbind>
+                <searchbind>ou=People,DC=tsc,DC=uc3m,DC=es</searchbind>
+        </LDAP> 
+
+        <PGP>
+                <usernamepgp>www</usernamepgp>
+                <pgppath>/usr/bin/gpg</pgppath>
+                <userpgp>www</userpgp>  
+                <userpgppath>/home/</userpgppath>
+                <commentpgp>Sistema de incidencias Sisifo</commentpgp>
+                <usarpgp>true</usarpgp>
+        </PGP>
+
+        <SISIFO>
+                <limit>'5'</limit>     
+                <limit_admin>'10'</limit_admin> 
+                <dateformat>m/d/Y h:i:s a</dateformat>  
+                <safe_comments>true</safe_comments>
+                <usarpgp>true</usarpgp>         
+                <incimail>sisifo@tsc.uc3m.es</incimail>
+                <baseurl>http://localhost/Sisifo_2.0/</baseurl>
+                <basepath>/var/www/html/Sisifo_2.0</basepath>              
+                <smtphost>hermod.tsc.uc3m.es</smtphost>            
+		<dirupload>/mnt/datos/html/packages/incidencias/adjuntos/</dirupload>
+        </SISIFO>
+
+</SISTEMA>
+

@@ -1,0 +1,43 @@
+<?php 
+
+
+
+
+class SisifoMensaje {
+    
+	var $id;
+	var $de;
+	var $a;
+	var $fecha;
+	var $texto;
+
+	
+	function SisifoMensaje ( $idinci, $de, $a, $fecha, $texto, $insertar = false ) {
+	
+    	global $sisifoConf;
+
+	$db = $sisifoConf -> getBd();
+
+	   
+		if ( $insertar ) {
+			$sql = "INSERT INTO mensaje (id_incidencia, de, a, fecha, texto) VALUES ('" .
+				$idinci . "','" . $de . "','" . $a . "','" . now() . "','" . $texto . "');";
+			$db -> execute ( $sql );
+		}
+		//$this -> id = $idmensaje;
+		$this -> de = $de;
+		$this -> a = $a;
+		$this -> fecha = $fecha;
+		$this -> texto = $texto;
+	}
+	
+	function getfecha () {
+		return ( $this -> fecha );
+	}
+
+	function gettexto () {
+		return ( $this -> texto );
+	}
+	
+	
+}	

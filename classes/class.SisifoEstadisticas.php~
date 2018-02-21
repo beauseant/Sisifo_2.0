@@ -1,0 +1,207 @@
+<?php 
+
+	require_once ( "phplot/phplot.php" );
+ 	require_once ("class.SisifoIncidencia.php");
+	require_once ('singleton/class.Configuracion.php');
+
+
+class SisifoEstadisticas {
+
+
+var $db;
+var $data;
+var $meses;
+var $titu;
+
+	function SisifoEstadisticas ( $db ) {
+
+		$sisifoConf  = new Configuracion ( $_SESSION ['fichero'] );
+		$this -> db = $sisifoConf -> getBd();
+		$this -> meses = array('Enero','Febrero','Marzo','Abril','Mayo',
+			'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',
+			'Noviembre', 'Diciembre');
+	}
+
+	function estadisTipoResumen ( $year, $id_usr  ) {
+
+		$sql = "SELECT * FROM tipo_incidencia";
+		$resultSetEstado = $this -> db -> Execute ( $sql );
+		$resultado = array();
+		$contador = 0;
+		//$this -> data = array();
+
+		while ( ! $resultSetEstado  -> EOF ) {
+			$id_tipo = $resultSetEstado -> fields['id'];
+			$desc_tipo = $resultSetEstado -> fields['descripcion'];
+			
+			$sql = "SELECT COUNT(*) as \"numInci\" FROM Incidencia WHERE
+				 tipo = " . $id_tipo;
+
+			if ( $id_usr ) {
+				$sql = $sql . " AND id_usuario = " . $id_usr;
+			} else {
+				$sql = $sql . " AND id_usuario > 0";
+			}
+			if ( $year ) {
+				$sql = $sql . " AND fecha_llegada LIKE '%". $year . "%'";
+			}
+	
+			$resultSet = $this -> db -> Execute ( $sql );
+			$contador2 = $contador + 1;
+			$resultado [$contador] = array();
+			$resultado [$contador][0] = $desc_tipo;
+			$aux = 1;
+			while ( $aux < $contador2 ) {
+				$resultado[$contador][$aux]='';
+				$aux++;
+			}
+			$resultado [$contador][$contador2] = $resultSet -> fields  ['numInci'];
+			$resultSetEstado -> MoveNext();
+			$contador++;
+		}
+		$this -> data = $resultado;
+	}
+
+	function estadisEstadoResumen ( $year, $id_usr  ) {
+
+		$sql = "SELECT * FROM estado_inci";
+		$resultSetEstado = $this -> db -> Execute ( $sql );
+		$resultado = array();
+		$contador = 0;
+		//$this -> data = array();
+
+		while ( ! $resultSetEstado  -> EOF ) {
+			$id_estado = $resultSetEstado -> fields['id_estado_in'];
+			$desc_estado = $resultSetEstado -> fields['descripcion'];
+			
+			$sql = "SELECT COUNT(*) as \"numInci\" FROM Incidencia WHERE
+				 id_estado = " . $id_estado;
+
+			if ( $id_usr ) {
+				$sql = $sql . " AND id_usuario = " . $id_usr;
+			} else {
+				$sql = $sql . " AND id_usuario > 0";
+			}
+			if ( $year ) {
+				$sql = $sql . " AND fecha_llegada LIKE '%". $year . "%'";
+			}
+	
+			//echo $sql;
+			$resultSet = $this -> db -> Execute ( $sql );
+			$resultado [$contador] = array();
+			$resultado [$contador][0] = $desc_estado;
+			$contador2 = $contador + 1;
+			$aux = 1;
+			while ( $aux < $contador2 ) {
+				$resultado[$contador][$aux]='';
+				$aux++;
+			}
+			$resultado [$contador][$contador2] = $resultSet -> fields  ['numInci'];
+			
+
+			$resultSetEstado -> MoveNext();
+			$contador++;
+		}
+		$this -> data = $resultado;
+
+	}
+
+	function estadisTipoCompleta ( $year, $id_usr  ) {
+
+		//$this -> data = array();
+		$resultado = array();
+		for ( $contadormes = 0 ; $contadormes < 12 ; $contadormes++ ) {
+			$resultado [$contadormes] = array();
+			$resultado [$contadormes][0] = $this -> meses[$contadormes];
+			$sql = "SELECT * FROM tipo_incidencia";
+			$resultSetEstado = $this -> db -> Execute ( $sql );
+			$contador = 1;
+			while ( ! $resultSetEstado  -> EOF ) {
+				$id_tipo = $resultSetEstado -> fields['id'];
+				$desc_tipo = $resultSetEstado -> fields['descripcion'];
+			
+				$sql = "SELECT COUNT(*) as \"numInci\" FROM Incidencia WHERE
+						tipo = " . $id_tipo;
+				if ( $id_usr ) {
+					$sql = $sql . " AND id_usuario = " . $id_usr;
+				} else {
+					$sql = $sql . " AND id_usuario > 0";
+				}
+				$contadormesstr = $contadormes + 1;	
+				if ( $contadormesstr < 10 ) {
+					$contadormesstr = "0".$contadormesstr;
+				}
+				if ( $year ) {
+					$sql = $sql . " AND fecha_llegada LIKE '". $year . 
+						"-" . $contadormesstr . "%'";
+				}
+				$resultSet = $this -> db -> Execute ( $sql );
+				$resultado [$contadormes][$contador] = $resultSet -> fields  ['numInci'];
+				$resultSetEstado -> MoveNext();
+				$contador++;
+			}
+		}
+		$this -> data = $resultado;
+	}
+
+
+	function estadisEstadoCompleta ( $year, $id_usr  ) {
+
+		//$this -> data = array();
+		$resultado = array();
+		for ( $contadormes = 0 ; $contadormes < 12 ; $contadormes++ ) {
+			$resultado [$contadormes] = array();
+			$resultado [$contadormes][0] = $this -> meses[$contadormes];
+			$sql = "SELECT * FROM estado_inci";
+			$resultSetEstado = $this -> db -> Execute ( $sql );
+			$contador = 1;
+			while ( ! $resultSetEstado  -> EOF ) {
+				$id_estado = $resultSetEstado -> fields['id_estado_in'];
+				$desc_estado = $resultSetEstado -> fields['descripcion'];
+			
+				$sql = "SELECT COUNT(*) as \"numInci\" FROM Incidencia WHERE
+						id_estado = " . $id_estado;
+				if ( $id_usr ) {
+					$sql = $sql . " AND id_usuario = " . $id_usr;
+				} else {
+					$sql = $sql . " AND id_usuario > 0";
+				}
+				$contadormesstr = $contadormes + 1;	
+				if ( $contadormesstr < 10 ) {
+					$contadormesstr = "0".$contadormesstr;
+				}
+				if ( $year ) {
+					$sql = $sql . " AND fecha_llegada LIKE '". $year . 
+						"-" . $contadormesstr . "%'";
+				}
+				$resultSet = $this -> db -> Execute ( $sql );
+				$resultado [$contadormes][$contador] = $resultSet -> fields  ['numInci'];
+				$resultSetEstado -> MoveNext();
+				$contador++;
+			}
+		}
+		$this -> data = $resultado;
+	}
+
+
+	function prueba () {
+
+		$this -> data = array ();
+		$this -> data = array(
+				array("Hardware",20),
+				array("Soft",'',30),
+				array("LLaves",'','',10)
+			);
+	}
+
+
+	function getData () {
+		return $this -> data;
+	}	
+
+	function pintar ( ) {
+
+	}
+
+
+}
