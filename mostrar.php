@@ -10,8 +10,8 @@
   	<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   	<!-- Custom styles for this template-->
   	<link href="css/sb-admin.min.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.css"/> 
-	<script type="text/javascript" src="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="vendor/datatables/datatables.min.css"/> 
+	<script type="text/javascript" charset="utf-8" src="vendor/datatables/datatables.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$(document).ready(function() {
 			$('#example').dataTable();
@@ -66,7 +66,7 @@
 			$fila = '';
 
 			$salida = '<table id="example" class="display" cellspacing="0" width="100%">
-							<thead><tr><th>Id</th><th>estado</th><th>tipo</th><th>fecha</th><th>fecha resolucion</th><th>descripción</th><th>con copia a</th></tr>
+							<thead><tr><th>Id</th><th>estado</th><th>tipo</th><th>fecha</th><th>fecha resolucion</th><th width="20">descripción</th><th>con copia a</th></tr>
 							</thead>
 							<tbody>
 						';
@@ -110,7 +110,17 @@
 	// For demo to fit into DataTables site builder...
 	$('#example')
 		.removeClass( 'display' )
-		.addClass('tdisplay');
+		.addClass('tdisplay').dataTable({
+  "columns": [
+    { "width": "5%" },
+    { "width": "5%" },
+    { "width": "5%" },
+    { "width": "25%" },
+    { "width": "25%" },
+    { "width": "30%" },
+    { "width": "5%" }
+  ]			
+		});
 </script>
 
 
