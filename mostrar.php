@@ -20,8 +20,12 @@
 
       $uid = getUID($_SESSION['login']);
        }else {
-        echo"Ha probado a <A href=\"index.php\">registrarse</A>?";
-      exit();
+          echo '
+              <div class="alert alert-warning">
+                    <strong>Acceso no autorizado</strong> ¿Ha probado a <A href="index.php">registrarse</A>?.
+              </div>
+          ';
+            exit();
        }
 
 
@@ -57,7 +61,11 @@
       echo $salida;
 
     }else {   
-      echo '<center>Usted aun no ha enviado ninguna incidencia al sistema</center>';
+          echo '
+                    <div class="alert alert-warning">
+                    Usted aún no ha enviado ninguna incidencia al sistema.
+              </div>
+          ';
     }   
           
   ?>
@@ -122,7 +130,8 @@
         { "width": "25%" },
         { "width": "30%" },
         { "width": "5%" }
-      ]     
+      ],
+      "order":[[0,'desc']]
         });
     </script>
 

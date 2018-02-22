@@ -52,11 +52,10 @@ class SisifoInciSoft extends SisifoIncidencia{
 		parent::inicializar ( $id );
 		$sql = "SELECT * FROM inci_soft WHERE id ='" . $id ."'";
 		$resultSet = $db->Execute ( $sql );
-    		$this -> inciId = $resultSet -> fields ['id'];	
+    	$this -> inciId = $resultSet -> fields ['id'];	
 		$this -> datos_maquina = new SisifoMaquina ( $resultSet -> fields ['id_equipo']); 
 		$tipo_soft_num = $resultSet -> fields ['tipo'];	
 		$sql = "SELECT * FROM tipo_soft WHERE id = $tipo_soft_num";
-		print $sql;
 		$resultSet = $db->Execute ( $sql );
 		$this -> tipo_soft = $resultSet -> fields ['descripcion'];	
 		}

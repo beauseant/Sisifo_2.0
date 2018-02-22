@@ -463,6 +463,26 @@ class SisifoIncidencia {
     }    
         
     
+  function toArray () {
+
+        $resultado = Array();
+        $alta_date=new DateTime( $this -> inciDateLlegada,new DateTimeZone('GMT'));
+        $alta_date->setTimeZone(new DateTimeZone('Europe/Madrid'));
+
+        $up_date=new DateTime( $this -> inciDateRes,new DateTimeZone('GMT'));
+        $up_date->setTimeZone(new DateTimeZone('Europe/Madrid'));
+
+        $resultado ['alta'] = $alta_date;
+        $resultado ['update'] = $alta_date;
+        $resultado ['update'] = $alta_date;
+        $resultado ['descbreve'] = $this -> inciDescBreve;
+        $resultado ['desclarga'] = $this -> inciDescLarga;
+        $resultado ['estado'] = $this -> inciEstado;
+
+        return $resultado;
+
+  }
+
 
 }
 

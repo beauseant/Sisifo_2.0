@@ -2,6 +2,7 @@
 
 require_once ("classSisifoMensaje.php");
 
+
 class SisifoArchivoMensaje {
     
 	var $id_incidencia;
@@ -13,14 +14,19 @@ class SisifoArchivoMensaje {
 	}
 	
 	function buscar ( ) {
-		global $sisifoConf;
-	
-		$db = $sisifoConf -> getBd();
+
+
+			$sisifoConf  = new Configuracion ( $_SESSION ['fichero'] );
+			$db = $sisifoConf -> getBd();
+		
 
 		
 			$sql = "SELECT * FROM mensaje WHERE id_incidencia =" . $this -> id_incidencia . " ORDER BY fecha;";
+
+			
 			
 			$rs = $db -> execute ( $sql );
+
 			
 			$webMensaje = array();
 			while (!$rs->EOF) {

@@ -190,8 +190,11 @@ class SisifoAutenticadorLdap extends SisifoAutenticador {
 				//Sacamos la informaci� del usuario:
 				$sr = ldap_search( $ds,(string)$new_userbind,"uidnumber=" . $id );
 				$info = ldap_get_entries($ds, $sr);			
-			
-				$mail = $info[0]["uid"][0];			
+
+				$mail = '';
+				if (isset ($info[0]["uid"][0])){
+					$mail = $info[0]["uid"][0];
+				}
 			}
 		}else {
 			$result = $ds;

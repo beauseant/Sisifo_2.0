@@ -14,10 +14,8 @@ class SisifoMensaje {
 	
 	function SisifoMensaje ( $idinci, $de, $a, $fecha, $texto, $insertar = false ) {
 	
-    	global $sisifoConf;
-
-	$db = $sisifoConf -> getBd();
-
+		$sisifoConf  = new Configuracion ( $_SESSION ['fichero'] );
+		$db = $sisifoConf -> getBd();
 	   
 		if ( $insertar ) {
 			$sql = "INSERT INTO mensaje (id_incidencia, de, a, fecha, texto) VALUES ('" .
