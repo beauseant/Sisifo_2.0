@@ -37,7 +37,7 @@
                 <baseurl>http://localhost/Sisifo_2.0/</baseurl>
                 <basepath>/var/www/html/Sisifo_2.0</basepath>              
                 <smtphost>hermod.tsc.uc3m.es</smtphost>            
-		<dirupload>/mnt/datos/html/packages/incidencias/adjuntos/</dirupload>
+		<dirupload>uploads/</dirupload>
         </SISIFO>
 
 </SISTEMA>

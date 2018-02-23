@@ -25,6 +25,7 @@ require ("lib.php");
 
 $pid = $_REQUEST['pid'];
 
+
 $tipo_incidencia = $_REQUEST['tipo_incidencia'];
 
 	switch($tipo_incidencia) {
@@ -94,20 +95,69 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
 	}
 ?>
 
+
+
+<?PHP
+	#
+	# Tenemos algún mensaje para insertar:
+	#
+
+	if (isset ($_REQUEST['texto'])){
+
+		if ($_REQUEST['texto'] <> ''){
+
+			$insertar = true;
+			$de = $_SESSION['uid'];
+			$a = "0";
+			$cc = $_REQUEST['texto'];
+			$inci_mail = $_REQUEST['inci_mail'];
+
+		#adjuntamos archivo con ese mensaje
+		if ($_FILES['adjunto']['name']<>'') {
+			include ("includes/adjuntar.php");
+			print_r ($_FILES);
+			exit();
+		}
+
+
+
+			$mensaje = new SisifoMensaje ( $pid, $de, $a, "", $_REQUEST['texto'], $insertar );
+			
+			$subject = "Mensaje de la incidencia ". $Incidencia ->getId() . " (" . $Incidencia ->getDescBreve() . ")";
+
+			$mymail = new Sisifocorreo ( $_SESSION['mail'], $inci_mail, $cc, $subject,$_REQUEST['texto'] ); 
+
+			$mymail -> enviar();
+
+
+
+		}else{
+			echo '
+		      <div class="alert alert-danger">
+		            Esta muy feo enviar mensajes sin contenido...
+		      </div>
+		    ';
+
+		}
+	}
+
+
+?>
+
 <?PHP
 
 	$datos = $Incidencia -> toArray();
 	
 	echo '
        <div class="">
-          <div class="card text-white bg-success o-hidden h-100">
+          <div class="card text-white o-hidden h-100" style="background-color:#576574;">
             <div class="card-body">
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-list"></i>
               </div>
               <div class="table-responsive mr-5"><h1>Detalles de la incidencia ' . $inci_uid . '</h1><hr></div>
               		<table class="table-striped">
-              			<thead><tr><th width="25%"></th><th></th></tr></thead>
+              			<thead><tr><th width="15%"></th><th width="1500"></th></tr></thead>
               			<tbody>
 	              			<tr><td><b><i class="fa fa-fw fa-calendar"></i></b></td><td>' . $datos['alta']->format('Y-m-d H:i:s') .'</td></tr>
 	              			<tr><td><b><i class="fa fa-fw fa-calendar"></i></b></td><td>' . $datos['update']->format('Y-m-d H:i:s') .'</td></tr>
@@ -145,13 +195,14 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
       $('#example')
         .removeClass( 'display' )
         .addClass('tdisplay').dataTable({
-      "columns": [
-        { "width": "16%" },
-        { "width": "5%" },
-        { "width": "5%" },
-        { "width": "5%" },
-        { "width": "65%" },
-      ],
+		      "columns": [
+		        { "width": "16%" },
+		        { "width": "3%" },
+		        { "width": "3%" },
+		        { "width": "3%" },
+		        { "width": "3%" },
+		        { "width": "100%" },
+		      ],
       "order":[[0,'desc']],
       "language":{
       		emptyTable: "No se han enviado mensajes en esta incidencia"

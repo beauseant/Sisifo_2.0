@@ -20,19 +20,20 @@ class SisifoArchivoMensaje {
 			$db = $sisifoConf -> getBd();
 		
 
+			$sql ='SELECT * FROM mensaje LEFT OUTER JOIN upload ON mensaje.id=upload.id_mensaje WHERE mensaje.id_incidencia=' . $this -> id_incidencia;			
 		
-			$sql = "SELECT * FROM mensaje WHERE id_incidencia =" . $this -> id_incidencia . " ORDER BY fecha;";
-
-			
 			
 			$rs = $db -> execute ( $sql );
 
 			
 			$webMensaje = array();
+
 			while (!$rs->EOF) {
 				$mensaje = new SisifoMensaje ( 
 					$rs -> fields ['id_incidencia'],$rs -> fields ['de'], $rs -> fields ['a'], 
-					$rs -> fields ['fecha'], $rs -> fields ['texto']  );
+					$rs -> fields ['fecha'], $rs -> fields ['texto'],
+					[$rs -> fields ['id_upload'],$rs -> fields ['id_mensaje'],$rs -> fields ['nombre_inci'], $rs -> fields ['nombre']]);
+
 				$webMensaje[] = $mensaje;
 				$rs->MoveNext();
 			}

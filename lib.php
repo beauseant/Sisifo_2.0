@@ -27,7 +27,7 @@ function cleanQuery($string)
   }
   $badWords = array("/delete/i", "/update/i","/union/i","/insert/i","/drop/i","/http/i","/--/i");
   $string = preg_replace($badWords, "", $string);
-  $string = mysql_escape_string($string);
+
   return $string;
 }
 

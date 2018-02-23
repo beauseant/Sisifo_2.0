@@ -38,23 +38,33 @@
 
     if ( $incidencias ) {
 
-      $fila = '';
+      $fila = '';      
 
       $salida = '<div class="card-header"><div class="table-responsive"> <table class="table table-bordered" id="example" class="display" cellspacing="0" width="100%">
               <thead><tr><th>Id</th><th>estado</th><th>tipo</th><th>fecha</th><th>fecha resolucion</th><th width="20">descripción</th><th>con copia a</th></tr>
               </thead>
               <tbody>
             ';
+      #
       foreach ($incidencias as $i) {        
-        $fila = $fila. '<tr>' .
-                  '<td><a href="detalles.php?pid='.$i['id'] . '&tipo_incidencia=' .  $i['tipo'] .'"</a>'. $i['id']. '</td>' .
-                  '<td>'. $i['estado']. '</td>' .
-                  '<td>'. $i['tipo']. '</td>' .
-                  '<td>'. $i['fecha_llegada']. '</td>' .
-                  '<td>'. $i['fecha_resolucion']. '</td>' .
-                  '<td>'. $i['desc_breve']. '</td>' .
-                  '<td>'. $i['cc']. '</td>' .
-                '</tr>';
+        $fila = $fila. 
+                  '<tr>' .                  
+                    '<td>
+                        <form METHOD="POST" id="'. $i['id'] . '" action="detalles.php" >
+                            <input class="btn btn-success" type="submit" value="'. $i['id']. '"><p style="display:none;">'. $i['id']. ' </p></input>
+                            <input type="hidden" name="pid" value="'. $i['id'] . '"</input>
+                            <input type="hidden" name="tipo_incidencia" value="'. $i['tipo'] . '"</input>
+                        </form>
+                    </td>' .
+                    '<td>'. $i['estado']. '</td>' .
+                    '<td>'. $i['tipo']. '</td>' .
+                    '<td>'. $i['fecha_llegada']. '</td>' .
+                    '<td>'. $i['fecha_resolucion']. '</td>' .
+                    '<td>'. $i['desc_breve']. '</td>' .
+                    '<td>'. $i['cc']. '</td>' .
+                  '</tr>
+                  ';
+
       }
       $salida = $salida . $fila . '</tbody></table></div></div>';
 

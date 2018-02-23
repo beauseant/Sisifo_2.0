@@ -10,9 +10,9 @@ class SisifoMensaje {
 	var $a;
 	var $fecha;
 	var $texto;
-
+	var $adjunto;
 	
-	function SisifoMensaje ( $idinci, $de, $a, $fecha, $texto, $insertar = false ) {
+	function SisifoMensaje ( $idinci, $de, $a, $fecha, $texto, $adjunto, $insertar = false ) {
 	
 		$sisifoConf  = new Configuracion ( $_SESSION ['fichero'] );
 		$db = $sisifoConf -> getBd();
@@ -27,6 +27,7 @@ class SisifoMensaje {
 		$this -> a = $a;
 		$this -> fecha = $fecha;
 		$this -> texto = $texto;
+		$this -> adjunto = $adjunto;
 	}
 	
 	function getfecha () {
@@ -48,6 +49,10 @@ class SisifoMensaje {
 		return ( $this -> a );
 	}
 
+	function getAdjunto () {
+		return ( $this -> adjunto );
+
+	}
 	
 	
 }	
