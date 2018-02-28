@@ -12,17 +12,23 @@ class SisifoMensaje {
 	var $texto;
 	var $adjunto;
 	
-	function SisifoMensaje ( $idinci, $de, $a, $fecha, $texto, $adjunto, $insertar = false ) {
+	function SisifoMensaje ( $idinci, $de, $a, $fecha, $texto, $adjunto, $insertar = False ) {
 	
+		
+
 		$sisifoConf  = new Configuracion ( $_SESSION ['fichero'] );
 		$db = $sisifoConf -> getBd();
+		$lastId = False;
 	   
 		if ( $insertar ) {
+
+
 			$sql = "INSERT INTO mensaje (id_incidencia, de, a, fecha, texto) VALUES ('" .
 				$idinci . "','" . $de . "','" . $a . "','" . now() . "','" . $texto . "');";
 			$db -> execute ( $sql );
+			$lastId = $db->insert_Id();
 		}
-		//$this -> id = $idmensaje;
+		$this -> id = $lastId;
 		$this -> de = $de;
 		$this -> a = $a;
 		$this -> fecha = $fecha;
@@ -48,6 +54,12 @@ class SisifoMensaje {
 	function getA () {
 		return ( $this -> a );
 	}
+
+
+	function getId () {
+		return ( $this -> id );
+	}
+
 
 	function getAdjunto () {
 		return ( $this -> adjunto );

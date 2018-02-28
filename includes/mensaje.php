@@ -1,10 +1,5 @@
 <?PHP
 
-		echo '
-              <div class="card-header">
-                <i class="fa fa-paper-plane"> Mensajes de la incidencia <b>'. $pid .'</b></i>
-              </div>
-        ';
 
 	     $cc = $Incidencia -> getCC ();		
 	       
@@ -38,7 +33,7 @@
 
       $adjunto = '';
       if ($i -> getAdjunto()[0]){
-        $adjunto = '<a href="' . $i -> getAdjunto()[3] . '" target="_blank" ><i class="fa fa-fw fa-paperclip"></i></a>';
+        $adjunto = '<a href="' . $i -> getAdjunto()[3] . '"  title="'. $i -> getAdjunto()[2] .'" target="_blank" ><i class="fa fa-fw fa-paperclip"></i></a>';
       }
 
         	$fila = $fila. '<tr>' .

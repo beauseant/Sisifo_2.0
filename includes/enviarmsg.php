@@ -9,8 +9,9 @@
 				<div class="form-group">
 	  				<textarea class="form-control" rows="5" name="texto" id="idtexto"></textarea>
 	  				<input type="submit" class="btn btn-success" value="Enviar">	  				
-					<label class="custom-file">
-						<input type="file" name="adjunto" id="fileinput" />
+					<label class="custom-file label label-default">
+						Si lo desea puede adjuntar un archivo al mensaje:</span>
+						<input type="file" name="adjunto" id="fileinput"/>
 					</label>
 					<input type="hidden" name="pid" value="'. $pid . '"</input>
                     <input type="hidden" name="tipo_incidencia" value="'. $tipo_incidencia . '"</input>

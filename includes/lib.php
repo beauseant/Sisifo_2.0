@@ -52,9 +52,10 @@ function gethost($ip)
 
 
 function esAdmin() {
-
-	return $_SESSION['admin'];
-
+	if (isset ($_SESSION['admin']) ){
+		return $_SESSION['admin'];
+	}
+	return false;
 }
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<title>Login V15</title>
+	<title>Sísifo 2.0</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -78,7 +78,6 @@
 		//catch (Exception $e){
 			//echo "hasta aquí bien";
 			//exit();
-			echo 'dfsdfasfsaf';
 			header("Location: index.php?act=bad");
 
 	   }
@@ -99,7 +98,7 @@
 							<form class="login100-form validate-form" action="./index.php" method=POST name="loginform">
 								<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 									<span class="label-input100">usuario</span>
-									<input class="input100" type="text" name="ulogin" placeholder="Introduzca el nombre de usuario">
+									<input class="input100" type="text" id="nombreUsuario" name="ulogin" placeholder="Introduzca el nombre de usuario">
 									<span class="focus-input100"></span>
 								</div>
 
@@ -146,6 +145,12 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script src="js/main.js"></script>
+
+    <script type="text/javascript">
+        document.getElementById("nombreUsuario").focus();
+    </script>
+
 
 </body>
 </html>

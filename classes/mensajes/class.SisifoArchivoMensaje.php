@@ -20,7 +20,7 @@ class SisifoArchivoMensaje {
 			$db = $sisifoConf -> getBd();
 		
 
-			$sql ='SELECT * FROM mensaje LEFT OUTER JOIN upload ON mensaje.id=upload.id_mensaje WHERE mensaje.id_incidencia=' . $this -> id_incidencia;			
+			$sql ='SELECT * FROM mensaje LEFT OUTER JOIN upload_msg ON mensaje.id=upload_msg.id_mensaje WHERE mensaje.id_incidencia=' . $this -> id_incidencia;			
 		
 			
 			$rs = $db -> execute ( $sql );

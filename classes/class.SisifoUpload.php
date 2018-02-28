@@ -49,24 +49,37 @@ class SisifoUpload {
         * @param type tipo mime del fichero.
 
 	*/           
-    function insertar ( $id_inci, $uploadfile, $size, $name, $type  ) {    	
+/*    function insertar ( $id_inci, $uploadfile, $size, $name, $type  ) {    	
     	
 
 		$this -> sisifoConf  = new Configuracion ( $_SESSION ['fichero'] );
 		$db = $this -> sisifoConf -> getBd();
 
-		$cadena =  "INSERT INTO upload ( name,type,size,content) VALUES ('$name','$type','$size',lo_import ('$uploadfile' ))"; 	
+		$cadena =  "INSERT INTO upload_msg ( name,type,size,content) VALUES ('$name','$type','$size',lo_import ('$uploadfile' ))"; 	
 		$resultSet = $db->Execute ( $cadena );
 
 		$cadena = "SELECT currval('upload_id_seq')";
                 $resultSet = $db->Execute ( $cadena );
     		$id = $resultSet -> fields ['currval'];	
 
-		$cadena = "INSERT INTO inci_upload (id_inci, id_upload) VALUES ('$id_inci','$id')";
+		$cadena = "INSERT INTO upload_msg (id_inci, id_upload) VALUES ('$id_inci','$id')";
 
                 $resultSet = $db->Execute ( $cadena );
     }
-   
+*/
+
+    function insertar ($id_inci, $id_msg, $uploadfile, $size, $name, $type ) {
+
+        $this -> sisifoConf  = new Configuracion ( $_SESSION ['fichero'] );
+        $db = $this -> sisifoConf -> getBd();
+
+        $cadena =  "INSERT INTO upload_msg ( id_incidencia, id_mensaje, nombre_inci, nombre, size, type) VALUES ('$id_inci','$id_msg','$uploadfile','$name','$size','$type')";
+        $resultSet = $db->Execute ( $cadena );
+
+
+
+    }
+
     function sacarAdjunto ( $id_inci ) {
 	$datos = array ();
 

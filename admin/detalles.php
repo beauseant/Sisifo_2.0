@@ -1,31 +1,24 @@
 <?php 
-
-#Si el usuario refresca la página de los detalles se pierde la información del id de incidencia, por lo que
-#le mandamos de vuelta a la principal:
-if (!isset ($_REQUEST['pid'])){
-	header('Location: mostrar.php');
-}
-
-require ("includes/lib.php");
+set_include_path(get_include_path() . PATH_SEPARATOR . '../');
+require ("../includes/lib.php");
 session_start(); 
 include("includes/generic_page.php");
 
+require_once ("../classes/class.SisifoInciHard.php");
+require_once ("../classes/class.SisifoInciAltaUsr.php");
+require_once ("../classes/class.SisifoInciBajaUsr.php");
+require_once ("../classes/class.SisifoInciSoft.php");
+require_once ("../classes/class.SisifoInciLlave.php");
+require_once ("../classes/class.SisifoCambioRol.php");
+require_once ("../classes/class.SisifoInciOtras.php");
+require_once ("../classes/class.SisifoInciMaquina.php");
+require_once ("../classes/class.SisifoInciCluster.php");
 
+require_once("../classes/mensajes/class.SisifoArchivoMensaje.php");
+require_once ("../config.php");
+require_once ("../classes/mandarcorreo/class.Sisifocorreo.php");
+require_once ("../classes/class.SisifoIncidencia.php");
 
-require_once ("classes/class.SisifoInciHard.php");
-require_once ("classes/class.SisifoInciAltaUsr.php");
-require_once ("classes/class.SisifoInciBajaUsr.php");
-require_once ("classes/class.SisifoInciSoft.php");
-require_once ("classes/class.SisifoInciLlave.php");
-require_once ("classes/class.SisifoCambioRol.php");
-require_once ("classes/class.SisifoInciOtras.php");
-require_once ("classes/class.SisifoInciMaquina.php");
-require_once ("classes/class.SisifoInciCluster.php");
-
-require_once("classes/mensajes/class.SisifoArchivoMensaje.php");
-require_once ("config.php");
-require_once ("classes/mandarcorreo/class.Sisifocorreo.php");
-require_once ("classes/class.SisifoIncidencia.php");
 
 
 
@@ -82,7 +75,7 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
 	$uid = getUID($_SESSION['login']);
 	
 
-	if( isLoggedIn()  ) {
+	if(! esAdmin()  ) {
 		if ($inci_uid != $uid )  {		
 			echo '
 	              <div class="alert alert-danger">
@@ -91,7 +84,9 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
 	          ';
 			exit();
 		}
-	}else{
+	}
+
+	if(! isLoggedIn()  ) {
           echo '
               <div class="alert alert-warning">
                     <strong>Acceso no autorizado</strong> ¿Ha probado a <A href="index.php">registrarse</A>?.
@@ -178,23 +173,11 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
         </div>
     ';
 
-    #Mostramos los mensajes de la incidencia en una ventana modal:
-    include ("includes/mensajes_modal.php");
+	#Mostramos los mensajes de la incidencia
+	include ('includes/mensaje.php');
 
-    echo '
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#msgModal">
-		  Ver mensajes de la incidencia
-		</button>
-	';
+	include ('includes/enviarmsg.php')
 
-	#lo mismo para adjuntar archivos o enviar un nuevo mensaje:
-	include ("includes/adjuntos_modal.php");	
-    echo '
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adjModal">
-	  	  Añadir un mensaje o adjunto a la incidencia.
-	</button>
-	';
-	
 
 ?>
 
@@ -215,18 +198,17 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
         .removeClass( 'display' )
         .addClass('tdisplay').dataTable({
 		      "columns": [
-		        { "width": "10%" },
+		        { "width": "16%" },
 		        { "width": "3%" },
 		        { "width": "3%" },
-		        { "width": "1%" },
+		        { "width": "3%" },
 		        { "width": "3%" },
 		        { "width": "100%" },
 		      ],
       "order":[[0,'desc']],
       "language":{
-      "emptyTable": "No se han enviado mensajes en esta incidencia",
-      	},
-      "pageLength": 4
+      		emptyTable: "No se han enviado mensajes en esta incidencia"
+      	}
         });
     </script>
 
