@@ -33,7 +33,7 @@
 	session_start();
 
 
-	require ("lib.php");
+	require ("includes/lib.php");
 
 
 	$sisifoConf  = new Configuracion ("sisifo.xml" );

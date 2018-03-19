@@ -94,7 +94,7 @@ class SisifoArchivo {
 
 	    $uid = getUID($_SESSION['login']);
 
-		$sql = "SELECT incidencia.id,estado_inci.descripcion, incidencia.id_usuario AS estado,tipo_incidencia.descripcion AS tipo, fecha_llegada,fecha_resolucion,desc_breve,cc
+		$sql = "SELECT incidencia.id,estado_inci.descripcion AS estado,tipo_incidencia.descripcion AS tipo, fecha_llegada,fecha_resolucion,desc_breve,cc
 					FROM (( incidencia
 						INNER JOIN estado_inci ON incidencia.id_estado = estado_inci.id_estado_in)
 						INNER JOIN tipo_incidencia ON incidencia.tipo = tipo_incidencia.id)";
@@ -104,8 +104,6 @@ class SisifoArchivo {
 		if (!$admin){
 			$sql = $sql . " WHERE id_usuario = $uid";
 		}
-
-		
 
 		#$sql = "SELECT id,id_estado,fecha_llegada,fecha_resolucion,desc_breve,cc FROM incidencia WHERE id_usuario = $uid ORDER BY id DESC";
 

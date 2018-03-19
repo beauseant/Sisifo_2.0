@@ -58,16 +58,19 @@
       $SisifoInfo = $sisifoConf -> getSisifoConf ();  
       $limit_admin = $SisifoInfo -> getLimitAdmin();
 
-      if (! isset ($_REQUEST['estado']) ) {
-        $estado = "";
-        $tipo = "";
-        $posInicio = "";
-      }else {
-        $estado = $_REQUEST['estado'];
-        $tipo = $_REQUEST['tipo'];
+      $posInicio = 0;
+      if ( isset ($_REQUEST['posInicio']) ) {
         $posInicio = $_REQUEST['posInicio'];
       }
 
+
+      if (! isset ($_REQUEST['estado']) ) {
+        $estado = "";
+        $tipo = "";
+      }else {
+        $estado = $_REQUEST['estado'];
+        $tipo = $_REQUEST['tipo'];
+      }
 
       //$ordenfecha = $_REQUEST['ordenfecha'];
 
@@ -75,9 +78,6 @@
         $estado = 3;
       }
 
-      if ((!isset($posInicio)) || ($posInicio == ""))  {    
-         $posInicio = 0;
-      }
 
 
 
@@ -111,10 +111,12 @@
 
       $_SESSION ['incidencias_totales'] = sacarNumInci ( $sql );
 
+      #print 'mostrar:' . $limit_admin . ' desde pos:' . $posInicio . 'para tipo:' . $tipo ;
       if( ($uid != 0 ) ) {
         $iterator = new IncidenciaIterator ( $sql, $limit_admin, $posInicio  );
       }
 
+      
       $validacion = new SisifoAutenticadorLdap ( "","");
 
 
@@ -128,7 +130,7 @@
             <td>
               <form name="opciones" action="mostrar.php" method=POST>
                 <input type="hidden" name="id">
-                <input type="hidden" name="posInicio">
+                <input type="hidden" name="posInicio" value=0>
                 <input type="hidden" name="ordenfecha">
                 <table>
                   <tr>

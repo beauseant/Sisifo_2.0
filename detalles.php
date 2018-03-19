@@ -32,6 +32,8 @@ require_once ("classes/class.SisifoIncidencia.php");
 $pid = $_REQUEST['pid'];
 
 
+
+
 $tipo_incidencia = $_REQUEST['tipo_incidencia'];
 
 	switch($tipo_incidencia) {
@@ -136,6 +138,11 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
 
 			$mymail -> enviar();
 
+			echo '
+		      <div class="alert alert-info">
+		            Mensaje insertado correctamente...
+		      </div>
+		    ';
 
 
 		}else{
@@ -162,7 +169,7 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-list"></i>
               </div>
-              <div class="table-responsive mr-5"><h1>Detalles de la incidencia ' . $inci_uid . '</h1><hr></div>
+              <div class="table-responsive mr-5"><h1>Detalles de la incidencia ' .  $pid . '</h1><hr></div>
               		<table class="table-striped">
               			<thead><tr><th width="15%"></th><th width="1500"></th></tr></thead>
               			<tbody>
@@ -180,21 +187,38 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
 
     #Mostramos los mensajes de la incidencia en una ventana modal:
     include ("includes/mensajes_modal.php");
-
-    echo '
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#msgModal">
-		  Ver mensajes de la incidencia
-		</button>
-	';
-
 	#lo mismo para adjuntar archivos o enviar un nuevo mensaje:
 	include ("includes/adjuntos_modal.php");	
-    echo '
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adjModal">
-	  	  Añadir un mensaje o adjunto a la incidencia.
-	</button>
+
+
+
+	echo '
+		<div class="container">
+		  <div class="row">
+		    <div class="col">
+		    <br>
+		    </div>
+		    <div class="col">
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div class="col">
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#msgModal">
+					  Ver mensajes de la incidencia
+					</button>
+
+		    </div>
+		    <div class="col">
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#adjModal">
+					  	  Añadir un mensaje o adjunto a la incidencia.
+					</button>
+
+		    </div>
+		  </div>
+		</div>
 	';
-	
+
+
 
 ?>
 
@@ -214,19 +238,16 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
       $('#example')
         .removeClass( 'display' )
         .addClass('tdisplay').dataTable({
-		      "columns": [
-		        { "width": "10%" },
-		        { "width": "3%" },
-		        { "width": "3%" },
-		        { "width": "1%" },
-		        { "width": "3%" },
-		        { "width": "100%" },
-		      ],
-      "order":[[0,'desc']],
-      "language":{
-      "emptyTable": "No se han enviado mensajes en esta incidencia",
-      	},
-      "pageLength": 4
+        	"columns": [
+        		{ "width": "5%" },
+        		{ "width": "5%" },
+        		{ "width": "90%" },
+        	],
+		    "order":[[0,'desc']],
+		    "language":{
+		    			"emptyTable": "No se han enviado mensajes en esta incidencia",
+		    },
+		    "pageLength": 4
         });
     </script>
 

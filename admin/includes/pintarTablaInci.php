@@ -15,7 +15,7 @@
 ?>
 		<div class="card-header"><div class="table-responsive">
 
-		<table class="table table-striped" width="100%">			
+		<table class="table table-striped  table-sm" width="100%">			
 			 <thead>
 			    <tr>
 					<th class="sorting_desc">Id</th>
@@ -56,35 +56,51 @@
 			?>
 		</tbody>
 		</table>
+	
 	</div>
-		<center>
-			<table width=100%>
-				<tr>					
-					<td align="right" valign="middle" bgcolor="#dddddd"> 
-					<?php
-						$newPos = $posInicio + $limit_admin;
-						if ($newPos < $_SESSION['incidencias_totales']){
-							echo '<a href="javascript: calcularInicioAdminInci(\'' . $newPos . '\')">';
-							echo '<img src="../Documentos/Imagenes/ver.gif" border=0 title="Ver siguientes" alt="Ver siguientes"></a>';	
-						}
-					?>
-						
+	<div class="row bg-secondary">
+		<div class="col-md-8">
+			<table>
+				<tr>
+
+					<td  bgcolor="#dddddd"> 
 					<?php
 						echo '<input type="hidden" name="posInicio" VALUE="'.$newPos2. '">';
 						$newPos2 = $posInicio - $limit_admin;
 						if ( $newPos2 >= 0 ) {
-							echo '<a href="javascript: calcularInicioAdminInci(\'' . $newPos2 . '\')">';
-							echo '<img src="../Documentos/Imagenes/atras.gif" border=0 title="Ver anteriores" alt="Ver anteriores"></a>';
+							echo '<form method="POST" action="mostrar.php" enctype="multipart/form-data">' . 
+								 '		<input type="hidden" name="posInicio" value="'. $newPos2 . '"</input>' .
+								 '		<input type="hidden" name="estado" value="'. $estado . '"</input>' .
+								 '		<input type="hidden" name="tipo" value="'. $tipo . '"</input>' .
+								 '		<button type="submit" class=""><i class="fa fa-arrow-circle-left"></i></button>' .
+								 '</form>'
+								 ;							
 						}
-						echo ' <br>[' . $newPos . '/' .
-						$_SESSION['incidencias_totales'] . ']';
-					?>
-						
+					?>						
 					</td>
+				
+					<td bgcolor="#dddddd"> 
+					<?php
+						$newPos = $posInicio + $limit_admin;
+						if ($newPos < $_SESSION['incidencias_totales']){
+							echo '<form method="POST" action="mostrar.php" enctype="multipart/form-data">' . 
+								 '		<input type="hidden" name="posInicio" value="'. $newPos . '"</input>' .
+								 '		<input type="hidden" name="estado" value="'. $estado . '"</input>' .
+								 '		<input type="hidden" name="tipo" value="'. $tipo . '"</input>' .
+								 '		<button type="submit" class=""><i class="fa fa-arrow-circle-right"></i></button>' .
+								 '</form>'
+								 ;
+
+						}
+					?>
 				</tr>
 			</table>
-		</center>
-	</td>
-			
-</tr>
-</table>		
+		</div>
+		<div class="col-md-4">
+						<?php echo '[' . $newPos . '/' . $_SESSION['incidencias_totales'] . ']';?>
+		</div>
+	</div>
+
+					
+
+

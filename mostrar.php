@@ -39,7 +39,7 @@
 
       $fila = '';      
 
-      $salida = '<div class="card-header"><div class="table-responsive"> <table class="table table-bordered" id="example" class="display" cellspacing="0" width="100%">
+      $salida = '<div class="card-header"><div class="table-responsive"> <table class="table table-bordered  table-sm" id="example" class="display" cellspacing="0" width="100%">
               <thead><tr><th>Id</th><th>estado</th><th>tipo</th><th>fecha</th><th>fecha resolucion</th><th width="20">descripción</th><th>con copia a</th></tr>
               </thead>
               <tbody>
