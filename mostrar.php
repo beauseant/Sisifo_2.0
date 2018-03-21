@@ -39,24 +39,30 @@
 
       $fila = '';      
 
-      $salida = '<div class="card-header"><div class="table-responsive"> <table class="table table-bordered  table-sm" id="example" class="display" cellspacing="0" width="100%">
-              <thead><tr><th>Id</th><th>estado</th><th>tipo</th><th>fecha</th><th>fecha resolucion</th><th width="20">descripción</th><th>con copia a</th></tr>
+      $salida = '<div class="card-header"><div class="table-responsive"> <table class="table table-striped table-bordered  table-sm" id="example" class="display" cellspacing="0" width="100%">
+              <thead><tr><th>Id</th><th>tipo</th><th>estado</th><th>fecha</th><th>fecha resolucion</th><th width="20">descripción</th><th>con copia a</th></tr>
               </thead>
               <tbody>
             ';
-      #
-      foreach ($incidencias as $i) {        
+      
+
+
+      #el color de la letra depende del estado de la incidencia:
+      $bg = getBgColor ();
+
+      foreach ($incidencias as $i) {  
+      
         $fila = $fila. 
                   '<tr>' .                  
                     '<td>
                         <form METHOD="POST" id="'. $i['id'] . '" action="detalles.php" >
-                            <input class="btn btn-success" type="submit" value="'. $i['id']. '"><p style="display:none;">'. $i['id']. ' </p></input>
+                            <a style="text-decoration: underline;" href="#" onclick="document.getElementById(\''. $i['id'] .'\' ).submit()"> '. $i['id']. '</a>
                             <input type="hidden" name="pid" value="'. $i['id'] . '"</input>
                             <input type="hidden" name="tipo_incidencia" value="'. $i['tipo'] . '"</input>
                         </form>
                     </td>' .
-                    '<td>'. $i['estado']. '</td>' .
                     '<td>'. $i['tipo']. '</td>' .
+                    '<td class="'. $bg[$i['estado']] . '">'. $i['estado']. '</td>' .
                     '<td>'. $i['fecha_llegada']. '</td>' .
                     '<td>'. $i['fecha_resolucion']. '</td>' .
                     '<td>'. $i['desc_breve']. '</td>' .
@@ -113,10 +119,10 @@
         .addClass('tdisplay').dataTable({
       "columns": [
         { "width": "5%" },
-        { "width": "5%" },
-        { "width": "5%" },
-        { "width": "25%" },
-        { "width": "25%" },
+        { "width": "15%" },
+        { "width": "15%" },
+        { "width": "15%" },
+        { "width": "15%" },
         { "width": "30%" },
         { "width": "5%" }
       ],

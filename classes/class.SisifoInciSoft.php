@@ -55,6 +55,7 @@ class SisifoInciSoft extends SisifoIncidencia{
     	$this -> inciId = $resultSet -> fields ['id'];	
 		$this -> datos_maquina = new SisifoMaquina ( $resultSet -> fields ['id_equipo']); 
 		$tipo_soft_num = $resultSet -> fields ['tipo'];	
+
 		$sql = "SELECT * FROM tipo_soft WHERE id = $tipo_soft_num";
 		$resultSet = $db->Execute ( $sql );
 		$this -> tipo_soft = $resultSet -> fields ['descripcion'];	

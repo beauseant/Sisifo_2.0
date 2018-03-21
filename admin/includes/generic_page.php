@@ -90,9 +90,16 @@
       </ul>
       <ul class="navbar-nav ml-auto ">
         <li class="nav-item">
+          <a class="nav-link" href="buscar.php">
+            <i class="fa fa-fw fa-search"></i>Buscar</a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>
+
+
       </ul>
     </div>
   </nav>

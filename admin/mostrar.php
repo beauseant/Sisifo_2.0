@@ -113,7 +113,8 @@
 
       #print 'mostrar:' . $limit_admin . ' desde pos:' . $posInicio . 'para tipo:' . $tipo ;
       if( ($uid != 0 ) ) {
-        $iterator = new IncidenciaIterator ( $sql, $limit_admin, $posInicio  );
+        $posInicio--;
+        $iterator = new IncidenciaIterator ( $sql, $limit_admin, $posInicio * $limit_admin );
       }
 
       

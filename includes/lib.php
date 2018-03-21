@@ -17,6 +17,18 @@ $res = array();
 #pre41vars();
 
 
+#Un color de letra diferente para cada estado de la incidencia:
+function getBgColor () {
+
+	$bg = array(
+		"RESUELTA" => "text-success",
+		"INTERRUMPIDA" => "text-warning",
+		"DESESTIMADA" => "text-danger",
+		"EN CURSO" => "text-info",
+	 );
+
+	return $bg;	
+}
 
 function cleanQuery($string)
 {

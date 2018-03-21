@@ -1,4 +1,12 @@
 <?php 
+
+#Si el usuario refresca la página de los detalles se pierde la información del id de incidencia, por lo que
+#le mandamos de vuelta a la principal:
+if (!isset ($_REQUEST['pid'])){
+	header('Location: mostrar.php');
+}
+
+
 set_include_path(get_include_path() . PATH_SEPARATOR . '../');
 require ("../includes/lib.php");
 session_start(); 
@@ -21,8 +29,10 @@ require_once ("../classes/class.SisifoIncidencia.php");
 
 
 
-
 $pid = $_REQUEST['pid'];
+
+
+
 
 
 $tipo_incidencia = $_REQUEST['tipo_incidencia'];
@@ -97,7 +107,6 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
 ?>
 
 
-
 <?PHP
 	#
 	# Tenemos algún mensaje para insertar:
@@ -131,6 +140,11 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
 
 			$mymail -> enviar();
 
+			echo '
+		      <div class="alert alert-info">
+		            Mensaje insertado correctamente...
+		      </div>
+		    ';
 
 
 		}else{
@@ -157,7 +171,7 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-list"></i>
               </div>
-              <div class="table-responsive mr-5"><h1>Detalles de la incidencia ' . $inci_uid . '</h1><hr></div>
+              <div class="table-responsive mr-5"><h1>Detalles de la incidencia ' .  $pid . '</h1><hr></div>
               		<table class="table-striped">
               			<thead><tr><th width="15%"></th><th width="1500"></th></tr></thead>
               			<tbody>
@@ -173,10 +187,52 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
         </div>
     ';
 
-	#Mostramos los mensajes de la incidencia
-	include ('includes/mensaje.php');
+    #Mostramos los mensajes de la incidencia en una ventana modal:
+    include ("includes/mensajes_modal.php");
+	#lo mismo para adjuntar archivos o enviar un nuevo mensaje:
+	include ("includes/adjuntos_modal.php");	
 
-	include ('includes/enviarmsg.php')
+
+
+	echo '
+		<div class="container">
+		  <div class="row">
+		    <div class="col">
+		    <br>
+		    </div>
+		    <div class="col">
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div class="col">
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#msgModal">
+					  Ver mensajes de la incidencia
+					</button>
+
+			</div>			
+			<div class="col">			
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#adjModal">
+					  	  Añadir un mensaje o adjunto a la incidencia.
+					</button>
+
+			</div>
+		    <div class="col">
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#msgModal">
+					  Ver anotaciones de la incidencia
+					</button>
+
+		    </div>
+		    <div class="col">
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#msgModal">
+					  Añadir anotaciones a la incidencia
+					</button>
+
+		    </div>
+			
+		  </div>
+		</div>
+	';
+
 
 
 ?>
@@ -197,18 +253,16 @@ $tipo_incidencia = $_REQUEST['tipo_incidencia'];
       $('#example')
         .removeClass( 'display' )
         .addClass('tdisplay').dataTable({
-		      "columns": [
-		        { "width": "16%" },
-		        { "width": "3%" },
-		        { "width": "3%" },
-		        { "width": "3%" },
-		        { "width": "3%" },
-		        { "width": "100%" },
-		      ],
-      "order":[[0,'desc']],
-      "language":{
-      		emptyTable: "No se han enviado mensajes en esta incidencia"
-      	}
+        	"columns": [
+        		{ "width": "5%" },
+        		{ "width": "5%" },
+        		{ "width": "90%" },
+        	],
+		    "order":[[0,'desc']],
+		    "language":{
+		    			"emptyTable": "No se han enviado mensajes en esta incidencia",
+		    },
+		    "pageLength": 4
         });
     </script>
 
